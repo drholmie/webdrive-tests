@@ -1,5 +1,5 @@
 const assert = require('assert');
-
+const fetch = require('node-fetch');
 describe('linkerd dashboard', () => {
     it('should have the right title', () => {
         browser.url('http://127.0.0.1:8000');
@@ -37,17 +37,46 @@ describe('linkerd dashboard', () => {
              item.click();
         });
     }
-    resources.click();
-    docs=sidebar.$$("ul")[1];
-    assert.equal(docs.$$("a")[0].getText(),"Documentation");
-    help=docs.$$("li")[0];
-    assert.equal(help.getText(),"Help");
-    help.click();
-    help_menu=$("div.jss126");
-    assert.equal(help_menu.$$("a")[0].getText(),"Join the mailing list");
-    assert.equal(help_menu.$$("a")[1].getText(),"Join us on slack");
-    assert.equal(help_menu.$$("a")[2].getText(),"File an issue");
+       
+}
+    )});
+
+describe('broken link test', function() {
+    it('should check the page for broken links', async function () {
+            browser.url('http://127.0.0.1:8000');
+            const sidebar= $(".jss91.jss92.jss4");
+            const menu = sidebar.$$("ul")[0];
+            const resources = menu.$$("li")[0];
+            resources.click();
+            const sub_menu=$("div.jss126");
+            if(sub_menu.isExisting()){
+            console.log("hello");
+            //const sub_div=menu.$$("div.jss162.jss163")[0];
+            const sub_menu_list=sub_menu.$$("li");
+            //console.log(typeof(sub_menu_list));
+            for(let i of sub_menu_list){
+            //li1=i;
+            i.click();
+            f();
+            i.click();
+            }
+        }
+            resources.click(); 
+    });
+});
+
+
+async function f(){
+    const sub_menu=$("div.jss126");
+    links=sub_menu.$$('a');
+    //console.log("2");
+    urls=links.map(link => link.getAttribute('href'));
+    requests=urls.map(url => fetch(url));
+    responses=await Promise.all(requests);
+    statuscode = responses.map(response=> response.status);
+    statuscode.forEach(status => {
+       // console.log("here");
+        assert(status<400);
     });
 
-
-});
+}
