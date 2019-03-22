@@ -12,7 +12,7 @@ describe('linkerd dashboard', () => {
             browser.pause(3000);
             expanded_table=item.$$("table");
              if(expanded_table.lenght>0){
-            for(let header in expanded_table){
+            for(let header of expanded_table){
                 theaders=header.$("thead").$$("th");
                 title=theader[0].getText();
                 j=0;
