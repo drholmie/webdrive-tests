@@ -11,6 +11,7 @@ exports.config = {
     services: ['selenium-standalone'],
     seleniumLogs : "./",
 
+    
     //
     // ==================
     // Specify Test Files
@@ -115,14 +116,15 @@ exports.config = {
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
         // excludeDriverLogs: ['bugreport', 'server'],
     },
-    {   maxInstances: 10,
-        browserName: 'firefox', 
+//uncomment only if using these browsers as well
+//     {   maxInstances: 10,
+//         browserName: 'firefox', 
 
-    },
-    {
-        maxInstaces: 10,
-        broswerName: 'safari',
-    }
+//     },
+//     {
+//         maxInstaces: 10,
+//         broswerName: 'safari',
+//     }
 ],
     //
     // ===================
