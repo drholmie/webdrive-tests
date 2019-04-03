@@ -9,9 +9,10 @@ const fetch = require('node-fetch');
         browser.pause(3000);
         const tables=overview.$$("div[role=button]");
             for(let table of tables){
-                console.log("here?");
+                //console.log("here?");
                 table.click();
                 browser.pause(3000);
+                if(table.$("table").isExisting()){
                 expanded_table=table.$$("table");
                 if(expanded_table.length>0){
                     for(let trows of expanded_table){
@@ -31,5 +32,6 @@ const fetch = require('node-fetch');
                 }
                 table.click();
         }
+    }
     });
 });
