@@ -1,15 +1,17 @@
 const assert = require('assert');
-describe('linkerd dashboard', () => {
-    it('should have the right title', () => {
+describe('linkerd overview', () => {
+    it('should have correct tables', () => {
         browser.url('http://127.0.0.1:8000');
         browser.pause(3000);
-        const overview=$("div.main-content").$("div.page-content").$("div.jss170").$("div.jss284");
-        overview.$("div.jss25.jss28.jss287.jss288").$$("div")[0].click();
+        const overview=$("div.page-content");
         headers=["Deployment","Meshed", "Success Rate", "RPS", "P50 Latency", 
         "P95 Latency", "P99 Latency", "TLS", "Grafana"];
-        overview.$$("div.jss25.jss28.jss287").forEach( item=> {
+        list=overview.$$("div[role=button]");
+        list.forEach( item=> {
+            item.scrollIntoView();
             item.click();
             browser.pause(3000);
+            if(item.$("table").isExisting()){
             expanded_table=item.$$("table");
              if(expanded_table.lenght>0){
             for(let header of expanded_table){
@@ -25,6 +27,7 @@ describe('linkerd dashboard', () => {
             }
             item.click();
             }
+        }
         });
 }
     )});
