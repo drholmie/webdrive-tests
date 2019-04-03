@@ -4,10 +4,10 @@ const fetch = require('node-fetch');
     it('should check the page for broken links', async function () {
         browser.url('http://127.0.0.1:8000');
         browser.pause(5000);
-        const overview=$("div.main-content").$("div.page-content").$("div.jss170").$("div.jss284");
-        overview.$("div.jss25.jss28.jss287.jss288").$$("div")[0].click();
+        const overview=$("div.page-content");
+        //overview.$("div.jss25.jss28.jss287.jss288").$$("div")[0].click();
         browser.pause(3000);
-        const tables=overview.$$("div.jss25.jss28.jss287");
+        const tables=overview.$$("div[role=button]");
             for(let table of tables){
                 console.log("here?");
                 table.click();
